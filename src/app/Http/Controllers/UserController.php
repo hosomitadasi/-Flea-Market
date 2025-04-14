@@ -9,16 +9,16 @@ class UserController extends Controller
 {
     public function showLoginForm()
     {
-        return view('login');
+        return view('auth/login');
     }
 
     public function showRegisterForm()
     {
-        return view('register');
+        return view('auth/register');
     }
 
     public function showVerifyEmailForm()
     {
-        return view('verify-email');
+        return view('auth/verify-email');
     }
 }
