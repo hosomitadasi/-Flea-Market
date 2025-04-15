@@ -20,8 +20,4 @@ Route::get('/profile', [RegisterdUserController::class, 'showProfileForm'])->nam
 
 Route::get('/sell', [PurchaseController::class, 'showSellForm'])->name('sell');
 Route::get('/purchase', [PurchaseController::class, 'showPurchaseForm'])->name('purchase');
-Route::get('/address', [PurchaseController::class, 'showAddress'])->name('address');
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/address', [PurchaseController::class, 'showAddressForm'])->name('address');

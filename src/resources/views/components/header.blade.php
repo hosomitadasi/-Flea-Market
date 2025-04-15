@@ -14,8 +14,8 @@
         <div class="header-nav_item">
             <a href="mypage">マイリスト</a>
         </div>
-        <div class="header-button">
-            <button class="">出品</button>
+        <div class="header-nav_item">
+            <button class="header-nav_button">出品</button>
         </div>
     </div>
 </header>
