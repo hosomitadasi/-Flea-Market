@@ -5,6 +5,7 @@
     <div class="header-search">
         <form>
             <input class="header-search_area" />
+            <img class="header-search_icon" src="img/search.png" alt="search">
         </form>
     </div>
     <div class="header-nav">

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/detail.css') }}">
+@endsection
+
 @section('main')
 <div class="item-image">
     <img>
@@ -37,7 +41,7 @@
     <div class="section">
         <h3>コメント (0)</h3>
         <div class="comment-box">
-            <img class="comment-icon" alt="アイコン">
+            <img class="comment-icon" src="img/circle-user.png" alt="icon">
             <div>
                 <p class="comment-user">コメントしたユーザー名</p>
                 <p class="comment-body">コメントされた内容</p>

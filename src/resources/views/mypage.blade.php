@@ -1,10 +1,14 @@
 @extends('layouts.app')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/mypage.css') }}">
+@endsection
+
 @section('main')
 <div class="mypage-container">
     <div class="profile-header">
         <div class="user-info">
-            <img class="user-icon">
+            <img class="user-icon" src="img/circle-user.png" alt="icon" >
             <h2>ユーザー名</h2>
         </div>
         <a href="/profile" class="edit-profile-btn">プロフィールを編集</a>

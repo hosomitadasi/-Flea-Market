@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/index.css') }}">
+@endsection
+
 @section('main')
 <div class="toppage-list">
     <div class="toppage-list_item">

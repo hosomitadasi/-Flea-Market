@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/purchase.css') }}">
+@endsection
+
 @section('main')
 <div class="purchase-container">
     <div class="purchase-main">

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/authentication.css') }}">
+@endsection
+
 @section('main')
 <form class="auth-card" action="" method="">
     @csrf

@@ -8,19 +8,12 @@
     <title>flea-market-app</title>
     <link rel="stylesheet" href="{{ asset('css/common.css') }}">
     <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/') }}">
-    <link rel="stylesheet" href="{{ asset('css/') }}">
-    <link rel="stylesheet" href="{{ asset('css/') }}">
-    <link rel="stylesheet" href="{{ asset('css/') }}">
-    <link rel="stylesheet" href="{{ asset('css/') }}">
-    <link rel="stylesheet" href="{{ asset('css/') }}">
-    <link rel="stylesheet" href="{{ asset('css/') }}">
-    <link rel="stylesheet" href="{{ asset('css/') }}">
+    @yield('css')
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 
 <body>
-    <div id="app">
+    <div class="main">
         @component('components.header')
         @endcomponent
         @yield('main')
