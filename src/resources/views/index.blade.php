@@ -1,10 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.default')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 @endsection
 
-@section('main')
+@section('content')
+
+@include('components.header')
+
 <div class="toppage-list">
     <div class="toppage-list_item">
         <p>おすすめ</p>

@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.default')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/purchase.css') }}">
 @endsection
 
-@section('main')
+@section('content')
 <div class="address-container">
     <h2>住所の変更</h2>
     <form class="address-card" action="" method="">

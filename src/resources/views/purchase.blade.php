@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.default')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/purchase.css') }}">
 @endsection
 
-@section('main')
+@section('content')
 <div class="purchase-container">
     <div class="purchase-main">
         <div class="item-box">

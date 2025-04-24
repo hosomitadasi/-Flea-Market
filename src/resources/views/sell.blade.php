@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.default')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/sell.css') }}">
 @endsection
 
-@section('main')
+@section('content')
 <div class="sell-container">
     <h2>商品の出品</h2>
     <form class="sell-card">

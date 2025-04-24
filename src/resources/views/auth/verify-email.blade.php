@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.default')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/verify.css') }}">
 @endsection
 
-@section('main')
+@section('content')
 <div class="verify-container">
     <div class="verify-container_word">
         <p>登録していただいたメールアドレスに認証メールを送付しました。<br>メール認証を完了してください。</p>

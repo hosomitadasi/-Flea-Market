@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.default')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/mypage.css') }}">
 @endsection
 
-@section('main')
+@section('content')
 <div class="mypage-container">
     <div class="profile-header">
         <div class="user-info">

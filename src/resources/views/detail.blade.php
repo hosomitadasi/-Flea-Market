@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.default')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/detail.css') }}">
 @endsection
 
-@section('main')
+@section('content')
 <div class="item-image">
     <img>
 </div>

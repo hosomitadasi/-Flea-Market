@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.default')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
 @endsection
 
-@section('main')
+@section('content')
 <div class="profile-container">
     <h2>プロフィール設定</h2>
     <form class="profile-card" action="" method="">
