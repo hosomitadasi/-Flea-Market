@@ -3,6 +3,10 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Condition;
+use App\Models\Item;
+use App\Models\Like;
+
 use Illuminate\Support\Facades\DB;
 
 class ItemsTableSeeder extends Seeder
@@ -10,104 +14,111 @@ class ItemsTableSeeder extends Seeder
 
     public function run()
     {
-        $param = [
-            'user_id' => 1,
-            'name' => '腕時計',
-            'price' => '15000',
-            'description' => 'スタイリッシュなデザインのメンズ腕時計',
-            'image_url' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Armani+Mens+Clock.jpg',
-            'condition_id' => 1,
+        $params = [
+            [
+                'name' => '腕時計',
+                'price' => 15000,
+                'brand' => 'Rolax',
+                'description' => 'スタイリッシュなデザインのメンズ腕時計',
+                'img_url' => 'public/img/mens_clock.jpg',
+                'user_id' => 2,
+                'condition_id' => Condition::$UNUSED,
+            ],
+            [
+                'name' => 'HDD',
+                'price' => 5000,
+                'brand' => '西芝',
+                'description' => '高速で信頼性の高いハードディスク',
+                'img_url' => 'public/img/hard_disk.jpg',
+                'user_id' => 2,
+                'condition_id' => Condition::$HARMLESS,
+            ],
+            [
+                'name' => '玉ねぎ3束',
+                'price' => 300,
+                'brand' => '',
+                'description' => '新鮮な玉ねぎ3束のセット',
+                'img_url' => 'public/img/onion.jpg',
+                'user_id' => 2,
+                'condition_id' => Condition::$HARMED,
+            ],
+            [
+                'name' => '革靴',
+                'price' => 4000,
+                'brand' => '',
+                'description' => 'クラシックなデザインの革靴',
+                'img_url' => 'public/img/leather_shoes.jpg',
+                'user_id' => 2,
+                'condition_id' => Condition::$BAD_CONDITION,
+            ],
+            [
+                'name' => 'ノートPC',
+                'price' => 45000,
+                'brand' => '',
+                'description' => '高性能なノートパソコン',
+                'img_url' => 'public/img/laptop_PC.jpg',
+                'user_id' => 2,
+                'condition_id' => Condition::$UNUSED,
+            ],
+            [
+                'name' => 'マイク',
+                'price' => 8000,
+                'brand' => '',
+                'description' => '高音質のレコーディング用マイク',
+                'img_url' => 'public/img/mic.jpg',
+                'user_id' => 2,
+                'condition_id' => Condition::$HARMLESS,
+            ],
+            [
+                'name' => 'ショルダーバッグ',
+                'price' => 3500,
+                'brand' => '',
+                'description' => 'おしゃれなショルダーバッグ',
+                'img_url' => 'public/img/shoulder_bag.jpg',
+                'user_id' => 1,
+                'condition_id' => Condition::$HARMED,
+            ],
+            [
+                'name' => 'タンブラー',
+                'price' => 500,
+                'brand' => '',
+                'description' => '使いやすいタンブラー',
+                'img_url' => 'public/img/tumbler.jpg',
+                'user_id' => 1,
+                'condition_id' => Condition::$BAD_CONDITION,
+            ],
+            [
+                'name' => 'コーヒーミル',
+                'price' => 4000,
+                'brand' => 'Starbacks',
+                'description' => '手動のコーヒーミル',
+                'img_url' => 'public/img/coffer_mill.jpg',
+                'user_id' => 1,
+                'condition_id' => Condition::$UNUSED,
+            ],
+            [
+                'name' => 'メイクセット',
+                'price' => 2500,
+                'brand' => '',
+                'description' => '便利なメイクアップセット',
+                'img_url' => 'public/img/make_set.jpg',
+                'user_id' => 1,
+                'condition_id' => Condition::$HARMLESS,
+            ],
         ];
-        DB::table('items')->insert($param);
 
-        $param = [
-            'user_id' => 1,
-            'name' => 'HDD',
-            'price' => '5000',
-            'description' => '高速で信頼性の高いハードディスク',
-            'image_url' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/HDD+Hard+Disk.jpg',
-            'condition_id' => 2,
-        ];
-        DB::table('items')->insert($param);
+        $range = count($params);
+        for ($i = 0; $i < $range; $i++) {
+            Item::create($params[$i]);
+        }
 
-        $param = [
+        Like::create([
             'user_id' => 1,
-            'name' => '玉ねぎ3束',
-            'price' => '300',
-            'description' => '新鮮な玉ねぎ3束のセット',
-            'image_url' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/iLoveIMG+d.jpg',
-            'condition_id' => 3,
-        ];
-        DB::table('items')->insert($param);
-
-        $param = [
-            'user_id' => 1,
-            'name' => '革靴',
-            'price' => '4000',
-            'description' => 'クラシックなデザインの革靴',
-            'image_url' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Leather+Shoes+Product+Photo.jpg',
-            'condition_id' => 4,
-        ];
-        DB::table('items')->insert($param);
-
-        $param = [
-            'user_id' => 1,
-            'name' => 'ノートPC',
-            'price' => '45000',
-            'description' => '高性能なノートパソコン',
-            'image_url' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Living+Room+Laptop.jpg',
-            'condition_id' => 1,
-        ];
-        DB::table('items')->insert($param);
-
-        $param = [
-            'user_id' => 1,
-            'name' => 'マイク',
-            'price' => '8000',
-            'description' => '高音質のレコーディング用マイク',
-            'image_url' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Music+Mic+4632231.jpg',
-            'condition_id' => 2,
-        ];
-        DB::table('items')->insert($param);
-
-        $param = [
-            'user_id' => 1,
-            'name' => 'ショルダーバック',
-            'price' => '3500',
-            'description' => 'おしゃれなショルダーバッグ',
-            'image_url' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Purse+fashion+pocket.jpg',
-            'condition_id' => 3,
-        ];
-        DB::table('items')->insert($param);
-
-        $param = [
-            'user_id' => 1,
-            'name' => 'タンブラー',
-            'price' => '500',
-            'description' => '使いやすいタンブラー',
-            'image_url' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Tumbler+souvenir.jpg',
-            'condition_id' => 4,
-        ];
-        DB::table('items')->insert($param);
-
-        $param = [
-            'user_id' => 1,
-            'name' => 'コーヒーミル',
-            'price' => '4000',
-            'description' => '手動のコーヒーミル',
-            'image_url' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Waitress+with+Coffee+Grinder.jpg',
-            'condition_id' => 1,
-        ];
-        DB::table('items')->insert($param);
-
-        $param = [
-            'user_id' => 1,
-            'name' => 'メイクセット',
-            'price' => '2500',
-            'description' => '便利なメイクアップセット',
-            'image_url' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/%E5%A4%96%E5%87%BA%E3%83%A1%E3%82%A4%E3%82%AF%E3%82%A2%E3%83%83%E3%83%95%E3%82%9A%E3%82%BB%E3%83%83%E3%83%88.jpg',
-            'condition_id' => 2,
-        ];
-        DB::table('items')->insert($param);
+            'item_id' => 1,
+        ]);
+        Like::create([
+            'user_id' => 2,
+            'item_id' => 7,
+        ]);
     }
 }

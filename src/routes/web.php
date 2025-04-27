@@ -1,23 +1,63 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CommentController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PurchaseController;
-use App\Http\Controllers\RegisterdUserController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\RegisteredUserController;
+use Illuminate\Auth\Events\Registered;
 
-Route::get('/', [ItemController::class, 'showIndexForm'])->name('index');
-Route::get('/detail', [ItemController::class, 'showDetailForm'])->name('detail');
+Route::get('/', [ItemController::class, 'index'])->name('items.list');
+/* ItemControllerのindexアクション（商品一覧画面表示処理）を引き出すルート */
 
-Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
-Route::get('/register', [UserController::class, 'showRegisterForm'])->name('register');
-Route::get('/verify-email', [UserController::class, 'showVerifyEmailForm'])->name('verify-email');
+Route::get('/item{item}', [ItemController::class, 'detail'])->name('item.detail');
+/* ItemControllerのdetailアクション（商品詳細画面表示処理）を引き出すルート */
 
-Route::get('/mypage', [RegisterdUserController::class, 'showMypageForm'])->name('mypage');
-Route::get('/profile', [RegisterdUserController::class, 'showProfileForm'])->name('profile');
+Route::get('/item', [ItemController::class, 'search']);
+/* ItemControllerのsearchアクション（検索処理）を引き出すルート */
 
-Route::get('/sell', [PurchaseController::class, 'showSellForm'])->name('sell');
-Route::get('/purchase', [PurchaseController::class, 'showPurchaseForm'])->name('purchase');
-Route::get('/address', [PurchaseController::class, 'showAddressForm'])->name('address');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/sell', [ItemController::class, 'sellView']);
+    /* ItemControllerのsellView（出品画面表示処理）アクションを引き出すルート */
+    Route::post('/sell', [ItemController::class, 'sellCreate']);
+    /* ItemControllerのsellCreateアクション（商品出品処理）を引き出すルート */
+    Route::post('/item/like/{item_id}', [LikeController::class, 'create']);
+    /* LikeControllerのcreateアクション（いいね追加処理）を引き出すルート */
+    Route::post('/item/unlike/{item_id}', [LikeController::class, 'destroy']);
+    /* LikeControllerのdestroyアクション（いいね削除処理）を引き出すルート */
+    Route::post('/item/comment/{item_id}', [CommentController::class, 'create']);
+    /* CommentControllerのcreateアクション（コメント追加処理）を引き出すルート */
+    Route::get('/purchase/{item_id}', [PurchaseController::class, 'index'])->middleware('purchase')->name('purchase.index');
+    /* PurchaseControllerのindexアクション（購入画面表示処理）を引き出すルート ミドルウェア処理*/
+    Route::post('purchase/{item_id}', [PurchaseController::class, 'purchase'])->middleware('purchase');
+    /* PurchaseControllerのpurchaseアクション（購入処理）を引き出すルート ミドルウェア処理 */
+    Route::get('purchase/{item_id}/success', [PurchaseController::class, 'success']);
+    /* PurchaseControllerのsuccessアクション（）を引き出すルート */
+    Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'address']);
+    /* PurchaseControllerのaddressアクション（住所変更画面表示処理）を引き出すルート */
+    Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'updateAddress']);
+    /* PurchaseControllerのupdateAddressアクション（住所変更処理）を引き出すルート */
+    Route::get('/mypage', [UserController::class, 'mypage']);
+    /* UserControllerのmypageアクション（プロフィール画面表示処理）を引き出すルート */
+    Route::get('/mypage/profile', [UserController::class, 'profile']);
+    /* UserControllerのprofileアクション（プロフィール編集画面表示処理）を引き出すルート */
+    Route::post('/mypage/profile', [UserController::class, 'updateProfile']);
+    /* UserControllerのupdateProfileアクション（プロフィール編集処理）を引き出すルート */
+});
+
+/* ItemControllerのindexアクションを引き出すルート */
+
+/* ItemControllerのindexアクションを引き出すルート */
+
+Route::post('/login', [Controller::class, 'store'])->middleware('email');
+/* Controllerのstoreアクション（ログイン処理）を引き出すルート */
+
+Route::post('/register', [RegisteredUserController::class, 'store']);
+/* RegisteredUserControllerのstoreアクション（会員登録処理）を引き出すルート */
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->name('verification.notice');
+/* メール認証画面の表示を引き出すルート */
