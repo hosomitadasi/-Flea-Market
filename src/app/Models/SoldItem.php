@@ -8,7 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class SoldItem extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 'item_id';
+
+    public $incrementing = false;
+
     protected $fillable = [
+        'user_id',
+        'item_id',
         'sending_postcode',
         'sending_address',
         'sending_building',

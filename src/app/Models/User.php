@@ -27,26 +27,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function item()
-    {
-        return $this->belongsTo('App\Models\Item');
-    }
     public function profile()
     {
-        return $this->belongsTo('App\Models\Profile');
-    }
-    public function like()
-    {
-        return $this->belongsTo('App\Models\Like');
+        return $this->hasOne('App\Models\Profile');
     }
 
-    public function comment()
+    public function likes()
     {
-        return $this->belongsTo('App\Models\Comment');
+        return $this->hasMany('App\Models\Like');
     }
 
-    public function soldItem()
+    public function comments()
     {
-        return $this->belongsTo('App\Models\SoldItem');
+        return $this->hasMany('App\Models\Comment');
+    }
+
+    public function items()
+    {
+        return $this->hasMany('App\Models\Item');
     }
 }

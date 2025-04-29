@@ -1,13 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RegisteredUserController;
-use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 Route::get('/', [ItemController::class, 'index'])->name('items.list');
 /* ItemControllerのindexアクション（商品一覧画面表示処理）を引き出すルート */
@@ -51,8 +52,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 /* ItemControllerのindexアクションを引き出すルート */
 
-Route::post('/login', [Controller::class, 'store'])->middleware('email');
-/* Controllerのstoreアクション（ログイン処理）を引き出すルート */
+Route::post('/login', [AuthenticatedSessionController::class, 'store'])->middleware('email');
+/* AuthenticatedSessionControllerのstoreアクション（ログイン処理）を引き出すルート。その後のmiddlewareにより */
 
 Route::post('/register', [RegisteredUserController::class, 'store']);
 /* RegisteredUserControllerのstoreアクション（会員登録処理）を引き出すルート */
