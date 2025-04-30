@@ -1,43 +1,41 @@
 @extends('layouts.default')
 
+@section('title','会員登録')
+
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/authentication.css') }}">
 @endsection
 
 @section('content')
-<form class="auth-card" action="" method="">
+
+@include('components.header')
+<form class="authenticate center" action="/register" method="post">
     @csrf
-    <div class="auth-card__ttl">会員登録</div>
-    <div class="auth-card__item">
-        <p>ユーザー名</p>
-        <input class="auth-card__item__input" />
+    <h1 class="page__title">会員登録</h1>
+    <label for="name" class="entry__name">ユーザー名</label>
+    <input name="name" id="name" type="text" class="input" value="{{ old('name') }}">
+    <div class="form__error">
         @error('name')
-        <p class="error">{{ $message }}</p>
+        {{ $message }}
         @enderror
     </div>
-    <div class="auth-card__item">
-        <p>メールアドレス</p>
-        <input class="auth-card__item__input" />
+    <label for="mail" class="entry__name">メールアドレス</label>
+    <input name="email" id="mail" type="email" class="input" value="{{ old('email') }}">
+    <div class="form__error">
         @error('email')
-        <p class="error">{{ $message }}</p>
+        {{ $message }}
         @enderror
     </div>
-    <div class="auth-card__item">
-        <p>パスワード</p>
-        <input class="auth-card__item__input" />
+    <label for="password" class="entry__name">パスワード</label>
+    <input name="password" id="password" type="password" class="input">
+    <div class="form__error">
         @error('password')
-        <p class="error">{{ $message }}</p>
+        {{ $message }}
         @enderror
     </div>
-    <div class="auth-card__item">
-        <p>確認用パスワード</p>
-        <input class="auth-card__item__input" />
-        @error('password')
-        <p class="error">{{ $message }}</p>
-        @enderror
-    </div>
-    <div class="auth-card__btn">
-        <input type="" value="登録する" />
-    </div>
+    <label for="password_confirm" class="entry__name">確認用パスワード</label>
+    <input name="password_confirmation" id="password_confirm" type="password" class="input">
+    <button class="btn btn--big">登録する</button>
+    <a href="/login" class="link">ログインはこちら</a>
 </form>
 @endsection

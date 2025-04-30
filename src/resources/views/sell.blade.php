@@ -1,80 +1,105 @@
 @extends('layouts.default')
 
+@section('title','出品ページ')
+
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/sell.css') }}">
 @endsection
 
 @section('content')
-<div class="sell-container">
-    <h2>商品の出品</h2>
-    <form class="sell-card">
-        <div class="sell-card__item">
-            <p>商品画像</p>
-            @error('img')
-            <p class="error">{{ $message }}</p>
-            @enderror
-        </div>
+@include('components.header')
+<form action="#" method="post" class="sell center" enctype="multipart/form-data">
+    @csrf
+    <h1 class="page__title">商品の出品</h1>
+    <p class="entry__name">商品画像</p>
+    <div class="sell__img">
+        <img class="appload__img" id="myImage">
+    </div>
+    <div class="select_image--btn">
+        <label class="btn2">
+            画像を選択する
+            <input id="target" name="img_url" class="btn2--input" type="file" name="test" accept="image/png, image/jpeg">
+        </label>
+    </div>
+    <div class="form__error">
+        @error('img_url')
+        {{ $message }}
+        @enderror
+    </div>
 
-        <div class="sell-card__ttl">
-            <p>商品の詳細</p>
+    <h2 class="heading__name">商品の詳細</h2>
+    <p for="category" class="entry__name">カテゴリー</p>
+    <div class="sell__categories">
+        @foreach ($categories as $category)
+        <div class="sell__category">
+            <input name="categories[]" id="{{$category->id}}" type="checkbox" class="sell__check" value="{{$category->id}}">
+            <label for="{{$category->id}}" class="sell__check-label">{{$category->category}}</label>
         </div>
-        <div class="sell-card__border"></div>
+        @endforeach
+    </div>
+    <div class="form__error">
+        @error('categories')
+        {{ $message }}
+        @enderror
+    </div>
 
-        <div class="sell-card__item">
-            <p>カテゴリー</p>
-            @error('condition')
-            <p class="error">{{ $message }}</p>
-            @enderror
-        </div>
+    <label for="status" class="entry__name">商品の状態</label>
+    <select name="condition_id" id="status" class="sell__select input">
+        <option value="null" hidden>選択してください</option>
+        @foreach ($conditions as $condition)
+        <option value="{{$condition->id}}">{{$condition->condition}}</option>
+        @endforeach
+    </select>
+    <div class="form__error">
+        @error('condition_id')
+        {{ $message }}
+        @enderror
+    </div>
 
-        <div class="sell-card__item">
-            <p>商品の状態</p>
-            <p>プルダウンをここに</p>
-            @error('condition')
-            <p class="error">{{ $message }}</p>
-            @enderror
-        </div>
+    <label class="entry__name">ブランド</label>
+    <input name="brand" class="input">
 
-        <div class="sell-card__ttl">
-            <p>商品名と説明</p>
-        </div>
-        <div class="sell-card__border"></div>
+    <h2 class="heading__name">商品名と説明</h2>
+    <label for="name" class="entry__name">商品名</label>
+    <input name="name" id="name" type="text" class="input">
+    <div class="form__error">
+        @error('name')
+        {{ $message }}
+        @enderror
+    </div>
 
-        <div class="sell-card__item">
-            <p>商品名</p>
-            <input class="sell-card__item__input" />
-            @error('name')
-            <p class="error">{{ $message }}</p>
-            @enderror
-        </div>
+    <label for="description" class="entry__name">説明</label>
+    <textarea name="description" id="description" class="input textarea"></textarea>
+    <div class="form__error">
+        @error('description')
+        {{ $message }}
+        @enderror
+    </div>
 
-        <div class="sell-card__item">
-            <p>ブランド名</p>
-            <input class="sell-card__item__input" />
-            @error('brand-name')
-            <p class="error">{{ $message }}</p>
-            @enderror
-        </div>
+    <h2 class="heading__name price">販売価格</h2>
+    <label for="price" class="entry__name">販売価格</label>
+    <input name="price" id="price" type="number" class="input">
+    <div class="form__error">
+        @error('price')
+        {{ $message }}
+        @enderror
+    </div>
 
-        <div class="sell-card__item">
-            <p>商品の説明</p>
-            <input class="sell-card__item__input" />
-            @error('')
-            <p class="error">{{ $message }}</p>
-            @enderror
-        </div>
+    <button class="btn btn--big">出品する</button>
+</form>
 
-        <div class="sell-card__item">
-            <p>販売価格</p>
-            <input class="sell-card__item__input" value="￥" />
-            @error('price')
-            <p class="error">{{ $message }}</p>
-            @enderror
-        </div>
+<script>
+    const target = document.getElementById('target');
+    const e = document.getElementById('appload');
+    target.addEventListener('change', function(e) {
+        const file = e.target.files[0]
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.getElementById("myImage")
+            img.src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }, false);
+</script>
 
-        <div class="sekk-card__btn">
-            <input type="" value="出品する" />
-        </div>
-    </form>
-</div>
 @endsection

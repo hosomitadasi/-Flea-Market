@@ -1,56 +1,81 @@
 @extends('layouts.default')
 
+@section('title','購入手続き')
+
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/purchase.css') }}">
 @endsection
 
 @section('content')
-<div class="purchase-container">
-    <div class="purchase-main">
-        <div class="item-box">
-            <img src="" alt="商品画像" class="item-image">
-            <div class="item-info">
-                <h2 class="item-name">商品名</h2>
-                <p class="item-price">¥料金</p>
+
+@include('components.header')
+<div class="container">
+    <form class="buy" id="stripe-form" action="/purchase/{{$item->id}}" method="post">
+        <div class="buy__left">
+            <div class="item">
+                <div class="item__img">
+                    <img src="{{ \Storage::url($item->img_url) }}" alt="">
+                </div>
+                <div class="item__info">
+                    <h3 class="item__name">{{$item->name}}</h3>
+                    <p class="item__price">￥ {{number_format($item->price)}}</p>
+                </div>
+            </div>
+            <div class="purchases">
+                <div class="purchase">
+                    <div class="purchase__flex">
+                        <h3 class="purchase__title">支払い方法</h3>
+                    </div>
+                    <select class="purchase__value" id="payment" name="payment_method">
+                        <option value="konbini">コンビニ払い</option>
+                        <option value="card">クレジットカード払い</option>
+                    </select>
+                </div>
+                <div class="purchase">
+                    <div class="purchase__flex">
+                        <h3 class="purchase__title">配送先</h3>
+                        <button type="button" id="destination__update">変更する</button>
+                    </div>
+                    <div class="purchase__value">
+                        <label>〒 <input class="input_destination" name="destination_postcode" value="{{ $user->profile->postcode }}" readonly></label><br>
+                        <input class="input_destination" name="destination_address" value="{{ $user->profile->address }}" readonly><br>
+                        @if (isset($user->profile->building))
+                        <input class="input_destination" name="destination_building" value="{{ $user->profile->building }}" readonly>
+                        @endif
+                    </div>
+                    <div class="setting__flex">
+                        <button type="button" id="destination__setting">変更完了</button>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <form action="" method="">
-            @csrf
-
-            <div class="section">
-                <label for="payment">支払い方法</label>
-                <select name="payment_method" id="payment" required>
-                    <option value="">選択してください</option>
-                    <option value="convenience">コンビニ払い</option>
-                    <option value="credit_card">クレジットカード</option>
-                    <option value="bank_transfer">銀行振込</option>
-                </select>
-            </div>
-
-            <div class="section address-section">
-                <label>配送先</label>
-                <div class="address-box">
-                    <p>〒 郵便番号がここに入る</p>
-                    <p>住所、建物名をここに記載</p>
-                </div>
-                <a href="address" class="change-address">変更する</a>
-            </div>
-
-            <div class="purchase-summary-box">
+        <div class="buy__right">
+            <div class="buy__info">
                 <table>
                     <tr>
-                        <th>商品代金</th>
-                        <td>¥ 代金をそのまま記載</td>
+                        <th class="table__header">商品代金</th>
+                        <td id="item__price" class="table__data" value="{{ number_format($item->price) }}">¥ {{ number_format($item->price) }}</td>
                     </tr>
                     <tr>
-                        <th>支払い方法</th>
-                        <td id="selected-payment">コンビニ払い</td> {{-- JSで動的変更可能 --}}
+                        <th class="table__header">支払い方法</th>
+                        <td id="pay_confirm" class="table__data">コンビニ払い</td>
                     </tr>
                 </table>
-                <button type="" class="purchase-button">購入する</button>
             </div>
-        </form>
-    </div>
+            @csrf
+            @if ($item->sold())
+            <button class="btn disable" disabled>売り切れました</button>
+            @elseif ($item->mine())
+            <button class="btn disable" disabled>購入できません</button>
+            @else
+            <button id="purchase_btn" class="btn">購入する</button>
+            @endif
+        </div>
+    </form>
 </div>
+<script src="https://js.stripe.com/v3/"></script>
+<script src="https://checkout.stripe.com/checkout.js"></script>
+<script src="{{ asset('js/purchase.js') }}"></script>
+
 @endsection
