@@ -7,13 +7,8 @@ use App\Http\Controllers\Controller;
 
 class RegisterdUserController extends Controller
 {
-    public function showMypageForm()
+    public function store()
     {
-        return view('mypage');
     }
 
-    public function showProfileForm()
-    {
-        return view('profile');
-    }
 }

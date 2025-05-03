@@ -7,18 +7,15 @@ use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
-    public function showLoginForm()
+    public function mypage()
     {
-        return view('auth/login');
     }
 
-    public function showRegisterForm()
+    public function profile()
     {
-        return view('auth/register');
     }
 
-    public function showVerifyEmailForm()
+    public function updateProfile()
     {
-        return view('auth/verify-email');
     }
 }

@@ -3,22 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Item;
+use App\Models\SoldItem;
+use App\Models\Profile;
 use App\Http\Controllers\Controller;
 
 class PurchaseController extends Controller
 {
-    public function showSellForm()
+    public function index()
     {
-        return view('sell');
     }
 
-    public function showPurchaseForm()
+    public function purchase()
     {
-        return view('purchase');
     }
 
-    public function showAddressForm()
+    public function success()
+    {}
+
+    public function address()
     {
-        return view('address');
+    }
+
+    public function updateAddress()
+    {
     }
 }
