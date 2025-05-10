@@ -13,7 +13,7 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 Route::get('/', [ItemController::class, 'index'])->name('items.list');
 /* ItemControllerのindexアクション（商品一覧画面表示処理）を引き出すルート */
 
-Route::get('/item{item}', [ItemController::class, 'detail'])->name('item.detail');
+Route::get('/item/{item}', [ItemController::class, 'detail'])->name('item.detail');
 /* ItemControllerのdetailアクション（商品詳細画面表示処理）を引き出すルート */
 
 Route::get('/item', [ItemController::class, 'search']);

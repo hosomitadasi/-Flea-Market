@@ -9,12 +9,13 @@ class Condition extends Model
 {
     use HasFactory;
 
+    public static $UNUSED = 1;
+    public static $HARMLESS = 2;
+    public static $HARMED = 3;
+    public static $BAD_CONDITION = 4;
+
     protected $fillable = [
         'condition'
     ];
 
-    public function item()
-    {
-        return $this->hasMany('App\Models\Item');
-    }
 }

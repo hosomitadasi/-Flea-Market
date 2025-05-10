@@ -1,36 +1,13 @@
-<header>
-    <div class="header-logo">
-        <img src="img/coachtech.png" alt="coachtech">
-    </div>
-    <div class="header-search">
-        <form class="search-form">
-            <input class="header-search_area" placeholder="検索..." />
-            <img class="header-search_icon" src="img/search.png" alt="search">
-        </form>
-    </div>
-    <div class="header-nav">
-        <div class="header-nav_item">
-            <a href="auth/login">ログイン</a>
-        </div>
-        <div class="header-nav_item">
-            <a href="mypage">マイリスト</a>
-        </div>
-        <div class="header-nav_item">
-            <button class="header-nav_button">出品</button>
-        </div>
-    </div>
-</header>
-
 <header class="header">
     <div class="header__logo">
         <a href="/"><img src="{{ asset('img/logo.png') }}" alt="ロゴ"></a>
     </div>
     @if( !in_array(Route::currentRouteName(), ['register', 'login', 'verification.notice']) )
-    <form class="header_search" action="/" method="get">
+    <form class="header__search" action="/" method="get">
         @csrf
-        <input id="inputElement" class="header_search--input" type="text" name="search" placeholder="なにをお探しですか？">
-        <button id="buttonElement" class="header_search--button">
-            <img src="{{ asset('img/search_icon.jpeg') }}" alt="検索アイコン" style="height:100%;">
+        <input id="inputElement" class="header__search--input" type="text" name="search" placeholder="なにをお探しですか？">
+        <button id="buttonElement" class="header__search--button">
+            <img src="{{ asset('img/search_icon.png') }}" alt="検索アイコン" style="height:100%;">
         </button>
     </form>
     <nav class="header__nav">

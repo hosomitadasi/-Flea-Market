@@ -15,7 +15,7 @@ class Item extends Model
         'price',
         'brand',
         'description',
-        'image_url',
+        'img_url',
         'user_id',
         'condition_id',
     ];
@@ -40,13 +40,48 @@ class Item extends Model
         return $this->hasMany('App\Models\Comment');
     }
 
-    public function soldItem()
-    {
-        return $this->hasOne('App\Models\SoldItem');
-    }
-
     public function categoryItem()
     {
         return $this->hasMany('App\Models\CategoryItem');
     }
+
+    public function categories()
+    {
+        $categories = $this->categoryItem->map(function ($item) {
+            return $item->category;
+        });
+        return $categories;
+    }
+
+    public function liked()
+    {
+        return Like::where(['item_id' => $this->id, 'user_id' => Auth::id()])->exists();
+    }
+
+    public function likeCount()
+    {
+        return Like::where('item_id', $this->id)->count();
+    }
+
+    public function getComments()
+    {
+        $comments = Comment::where('item_id', $this->id)->get();
+        return $comments;
+    }
+
+    public function sold()
+    {
+        return SoldItem::where('item_id', $this->id)->exists();
+    }
+
+    public function mine()
+    {
+        return $this->user_id == Auth::id();
+    }
+
+    public static function scopeItem($query, $item_name)
+    {
+        return $query->where('name', 'like', '%' . $item_name . '%');
+    }
+
 }

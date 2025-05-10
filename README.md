@@ -43,6 +43,11 @@ Fortify実装
 
 ・php artisan migrate
 
+メール認証実装
+・mailtrapツールを使用。
+
+
+
 
 ## 開発環境
 

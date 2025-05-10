@@ -28,4 +28,10 @@ class Like extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    public function liked($item_id)
+    {
+        $count = Like::where('item_id', $item_id)->where('user_id', Auth::id())->count();
+        return $count > 0;
+    }
 }

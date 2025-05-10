@@ -9,13 +9,24 @@ class CategoryItem extends Model
 {
     use HasFactory;
 
-    public function item()
-    {
-        return $this->hasMany('App\Models\Item');
-    }
+    protected $table = 'category_items';
+
+    protected $primaryKey = ['item_id', 'category_id'];
+
+    public $incrementing = false;
+
+    protected $fillable = [
+        'item_id',
+        'category_id'
+    ];
 
     public function category()
     {
-        return $this->hasMany('App\Models\Category');
+        return $this->belongsTo('App\Models\Category');
+    }
+
+    public function item()
+    {
+        return $this->hasMany('App\Models\Item');
     }
 }
