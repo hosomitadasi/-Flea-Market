@@ -21,12 +21,15 @@ class UserController extends Controller
     }
 
     public function updateProfile(ProfileRequest $request){
+
         $img = $request->file('img_url');
-        if (isset($img)){
+        if (isset($img)) {
             $img_url = Storage::disk('local')->put('public/img', $img);
+        } else {
+            $img_url = '';
         }
 
-        $profile = where('user_id', Auth::id())->first();
+        $profile = Profile::where('user_id', Auth::id())->first();
         if ($profile){
             $profile->update([
                 'user_id' => Auth::id(),

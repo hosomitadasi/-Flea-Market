@@ -6,6 +6,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RegisteredUserController;
+use App\Http\Requests\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
@@ -70,3 +71,15 @@ Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->name('verification.notice');
 /* メール認証画面の表示を引き出すルート */
+
+Route::post('/email/verification-notification', function (Request $request) {
+    session()->get('unauthenticated_user')->sendEmailVerificationNotification();
+    session()->put('resent', true);
+    return back()->with('message', 'Verification link sent!');
+})->name('verification.send');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    session()->forget('unauthenticated_user');
+    return redirect('/mypage/profile');
+})->name('verification.verify');
