@@ -15,7 +15,7 @@ Route::get('/', [ItemController::class, 'index'])->name('items.list');
 /* ItemControllerのindexアクション（商品一覧画面表示処理）を引き出すルート */
 
 Route::get('/item/{item}', [ItemController::class, 'detail'])->name('item.detail');
-/* ItemControllerのdetailアクション（商品詳細画面表示処理）を引き出すルート */
+/* ItemControllerのdetailアクション（商品詳細画面表示処理）を引き出すルート 検索ということでGETリクエスト（データの取得）を使用。大量のデータがある場合や、機密情報がある場合はPOSTリクエストの場合もあり。 */
 
 Route::get('/item', [ItemController::class, 'search']);
 /* ItemControllerのsearchアクション（検索処理）を引き出すルート */
