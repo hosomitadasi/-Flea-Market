@@ -6,7 +6,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use App\Actions\Fortify\CreateNewUser;
 
-class RegisterdUserController extends Controller
+class RegisteredUserController extends Controller
 {
     public function store(
         Request $request,

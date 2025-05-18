@@ -12,13 +12,13 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 Route::get('/', [ItemController::class, 'index'])->name('items.list');
-/* ItemControllerのindexアクション（商品一覧画面表示処理）を引き出すルート */
+// ItemControllerのindexアクション（商品一覧画面表示処理）を呼び出し、商品一覧画面を表示。index(Request $request)内でタブ切り替えや検索パラメータを受け取り、該当する商品の一覧を返す。
 
 Route::get('/item/{item}', [ItemController::class, 'detail'])->name('item.detail');
-/* ItemControllerのdetailアクション（商品詳細画面表示処理）を引き出すルート 検索ということでGETリクエスト（データの取得）を使用。大量のデータがある場合や、機密情報がある場合はPOSTリクエストの場合もあり。 */
+// ItemControllerのdetailアクション（商品詳細画面表示処理）を呼び出し、商品詳細画面を表示。$itemの情報を入れてdetail.blade.phpを返す。検索ということでGETリクエスト（データの取得）を使用。大量のデータがある場合や、機密情報がある場合はPOSTリクエストの場合もあり。
 
 Route::get('/item', [ItemController::class, 'search']);
-/* ItemControllerのsearchアクション（検索処理）を引き出すルート */
+// ItemControllerのsearchアクション（検索処理）を呼び出し、キーワード検索結果を表示させる。$request->search_item を受け取り、スコープメソッドで絞り込んだ一覧を返す。
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/sell', [ItemController::class, 'sellView']);
