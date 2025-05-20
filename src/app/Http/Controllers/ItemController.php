@@ -40,7 +40,7 @@ class ItemController extends Controller
                 $query->select('item_id')->from('likes')->where('user_id', auth()->id());
             });
         }
-        // index.blade.phpにてmylistが指定されている場合は、「likesテーブルに存在する商品のみ表示するよう絞り込む」
+        // index.blade.phpにてmylistが指定されている場合は、「likesテーブルに存在する商品のみ表示するよう絞り込む。
 
         if($search){
             $query->where('name', 'like', "%{$search}%");
